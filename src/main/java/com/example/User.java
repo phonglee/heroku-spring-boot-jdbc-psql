@@ -4,14 +4,6 @@ package com.example;
  * Created by Rajdeep Dua on 14/3/16.
  */
 public class User {
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     private int id;
     private String first;
     private String last;
@@ -28,6 +20,14 @@ public class User {
         this.email = email;
         this.city = city;
         this.company = company;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirst() {

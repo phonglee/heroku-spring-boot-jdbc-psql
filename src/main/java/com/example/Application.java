@@ -24,13 +24,13 @@ public class Application {
     }
 
     @RequestMapping("/createuserform")
-    public String createUser(Model model) {
+    public String createUserForm(Model model) {
         model.addAttribute("user", new User());
         return "createuser";
     }
 
     @RequestMapping("/users")
-    public String contacts(Model model) {
+    public String users(Model model) {
         try {
             Connection connection = getConnection();
             Statement stmt = connection.createStatement();
@@ -56,7 +56,7 @@ public class Application {
     }
 
     @RequestMapping(value="/createuser", method=RequestMethod.POST)
-    public String createUser1(@ModelAttribute User user, Model model) {
+    public String createUser(@ModelAttribute User user, Model model) {
         model.addAttribute("user", user);
         int id = user.getId();
         String first = user.getFirst();
