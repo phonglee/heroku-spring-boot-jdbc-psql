@@ -1,1 +1,1 @@
-# heroku-connect-spring-boot
+heroku-spring-boot-jdbc-psql
