@@ -1,4 +1,4 @@
-package com.example;
+package com.tgfashion.view;
 
 /**
  * Created by Rajdeep Dua on 14/3/16.
