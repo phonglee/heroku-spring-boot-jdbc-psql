@@ -15,22 +15,35 @@
  */
 package com.tgfashion.controller;
 
-import com.tgfashion.view.User;
+import com.tgfashion.model.RecordRepository;
+import com.tgfashion.model.Users;
+import com.tgfashion.model.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
+
+    private RecordRepository repository;
+    private UserRepository userRepository;
+
+    @Autowired
+    public HomeController(RecordRepository repository, UserRepository userRepository) {
+        this.repository = repository;
+        this.userRepository = userRepository;
+    }
 
     @RequestMapping("/")
     public String home(Model model) {
@@ -39,59 +52,25 @@ public class HomeController {
 
     @RequestMapping("/createuserform")
     public String createUserForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new Users());
         return "createuser";
     }
 
     @RequestMapping("/users")
     public String users(Model model) {
-        try {
-            Connection connection = getConnection();
-            Statement stmt = connection.createStatement();
-            String sql;
-            sql = "SELECT id, first, last, email, company, city FROM cuser";
-            ResultSet rs = stmt.executeQuery(sql);
-            StringBuffer sb = new StringBuffer();
-            List users = new ArrayList<>();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String first = rs.getString("first");
-                String last = rs.getString("last");
-                String email = rs.getString("email");
-                String company = rs.getString("company");
-                String city = rs.getString("city");
-                users.add(new User(id, first, last, email, company, city));
-            }
-            model.addAttribute("users", users);
-            return "user";
-        } catch (Exception e) {
-            return e.toString();
-        }
+        List<Users> users = userRepository.findAll();
+        model.addAttribute("users", users);
+        return "user";
     }
 
     @RequestMapping(value = "/createuser", method = RequestMethod.POST)
-    public String createUser(@ModelAttribute User user, Model model) {
+    public String createUser(@ModelAttribute @Valid Users user, Model model, BindingResult result) {
         model.addAttribute("user", user);
-        int id = user.getId();
-        String first = user.getFirst();
-        String last = user.getLast();
-        String email = user.getEmail();
-        String city = user.getCity();
-        String company = user.getCompany();
-        try {
-            Connection connection = getConnection();
-            Statement stmt = connection.createStatement();
-            String sql;
-            sql = "insert into cuser(first, last, email, company, city) values " +
-                    "('" + first + "', '" + last + " ',' " + email + "', ' " +
-                    company + "', '" + city + "');";
-            stmt.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(!result.hasErrors()) {
+            userRepository.save(user);
         }
         return "result";
     }
-
 
     private static Connection getConnection() throws URISyntaxException, SQLException {
         URI dbUri;

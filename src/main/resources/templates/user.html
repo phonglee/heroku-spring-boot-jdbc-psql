@@ -11,15 +11,15 @@
 <div class="container">
 <h3> Users : </h3>
 <table>
-<th><td>Id</td><td>First</td><td>Last</td><td>Email</td><td>Company</td><td>City</td></th>
+<th><td>Id</td><td>Username</td><td>Password</td><td>Email</td><td>Address</td><td>Role</td></th>
 <tr th:each="contact : ${users}">
     <td></td>
     <td th:text="${contact.id}" ></td>
-    <td th:text="${contact.first}" ></td>
-    <td th:text="${contact.last}" ></td>
+    <td th:text="${contact.username}" ></td>
+    <td th:text="${contact.password}" ></td>
     <td th:text="${contact.email}" ></td>
-    <td th:text="${contact.company}" ></td>
-    <td th:text="${contact.city}" ></td>
+    <td th:text="${contact.address}" ></td>
+    <td th:text="${contact.role}" ></td>
 </tr>
 </table>
 </div>
