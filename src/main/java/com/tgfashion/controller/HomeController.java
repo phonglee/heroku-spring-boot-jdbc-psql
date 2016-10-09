@@ -106,7 +106,7 @@ public class HomeController {
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':'
                 + dbUri.getPort() + dbUri.getPath()
-                + "?sslmode=disable";
+                + "?sslmode=require";
         return DriverManager.getConnection(dbUrl, username, password);
     }
 }
