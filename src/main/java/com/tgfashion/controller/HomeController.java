@@ -51,6 +51,11 @@ public class HomeController {
         return "redirect:/product/view";
     }
 
+    @RequestMapping("/pl")
+    public String pl(Model model) {
+        return "pl";
+    }
+
     private void populateProduct(Model model) {
         model.addAttribute("dresses", productRepository.findByCategory("Dress"));
         model.addAttribute("shirts", productRepository.findByCategory("T-shirt"));
