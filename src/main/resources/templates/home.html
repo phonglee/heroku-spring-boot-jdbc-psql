@@ -302,7 +302,8 @@
                                                         <option value="5">6</option>
                                                     </select>
                                                     <input type="hidden" name="product-image" th:value="${dress.image}" />
-                                                    <input type="hidden" name="product-price" th:value="${dress.price}" />
+                                                    <input type="hidden" name="product-price" th:if="${dress.discount == 0}" th:value="${dress.price}" />
+                                                    <input type="hidden" name="product-price" th:if="${dress.discount > 0}" th:value="${dress.discount}" />
                                                 </figcaption>
                                             </figure>
 
