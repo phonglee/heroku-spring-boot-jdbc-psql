@@ -123,17 +123,17 @@ h2 {
 .aa-product-catg li .aa-product-hvr-content a:hover, .aa-product-catg li .aa-product-hvr-content a:focus {
   color: #ff6666;
 }
-#quick-view-modal .modal-content button.close:hover {
+.modal-custom .modal-content button.close:hover {
   color: #ff6666; 
 }
-#quick-view-modal .modal-content .aa-product-view-content .aa-price-block .aa-product-avilability span {
+.modal-custom .modal-content .aa-product-view-content .aa-price-block .aa-product-avilability span {
   color: #ff6666;
 }
-#quick-view-modal .modal-content .aa-product-view-content .aa-prod-view-size a:hover, #quick-view-modal .modal-content .aa-product-view-content .aa-prod-view-size a:focus {
+.modal-custom .modal-content .aa-product-view-content .aa-prod-view-size a:hover, .modal-custom .modal-content .aa-product-view-content .aa-prod-view-size a:focus {
   border-color: #ff6666;
   color: #ff6666;
 }
-#quick-view-modal .modal-content .aa-product-view-content .aa-prod-quantity .aa-prod-category a {
+.modal-custom .modal-content .aa-product-view-content .aa-prod-quantity .aa-prod-category a {
   color: #ff6666; 
 }
 .slick-prev,

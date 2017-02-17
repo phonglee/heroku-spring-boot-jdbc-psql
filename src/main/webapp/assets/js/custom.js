@@ -25,6 +25,33 @@
 
   
 **/
+var orderProducts = [];
+jQuery('.aa-add-card-btn').tooltip({
+    trigger: 'manual'
+});
+function removeItem(obj, name) {
+    item = $(obj).parent();
+    $(item).remove();
+    findAndRemove(orderProducts, 'name', name);
+    updateShoppingCart();
+}
+function findAndRemove(array, property, value) {
+    array.forEach(function(result, index) {
+        if(result[property] === value) {
+            //Remove from array
+            array.splice(index, 1);
+        }
+    });
+};
+
+function updateShoppingCart() {
+    total = 0;
+    for (i in orderProducts) {
+        total = total + (parseInt(orderProducts[i].price)*parseInt(orderProducts[i].quantity));
+    }
+    $(".aa-cart-notify").text(orderProducts.length);
+    $(".aa-cartbox-total-price").text(total + "k");
+};
 
 jQuery(function($){
 
@@ -293,6 +320,22 @@ jQuery(function($){
       $('html, body').animate({scrollTop : 0},800);
       return false;
     });
+
+    jQuery('#product-support').click(function(){
+        $("html, body").animate({ scrollTop: $(document).height() }, 800);
+        return false;
+    });
+
+    jQuery('.product-dress').click(function(){
+        $("html, body").animate({ scrollTop: $("#aa-product").offset().top }, 800);
+        return false;
+    });
+
+    jQuery('.product-guide').click(function(){
+        $("html, body").animate({ scrollTop: $("#aa-guide").offset().top }, 800);
+        return false;
+    });
+
   
   /* ----------------------------------------------------------- */
   /*  11. PRELOADER
@@ -368,7 +411,53 @@ jQuery(function($){
 		cssEase: 'linear'
     });
 
+    jQuery('#quick-view-modal').on('show.bs.modal', function(e) {
 
-    
+        //get data-id attribute of the clicked element
+        var bookId = $(e.relatedTarget).data('book-id');
+        var item = $(e.relatedTarget).data('item-img');
+        bookId = "a";
+
+        //populate the textbox
+        //$(e.currentTarget).find('input[name="bookId"]').val(bookId);
+    });
+
+    jQuery('.aa-add-card-btn').click(function() {
+        // confirm message to user
+        showNotification(this, "Đã thêm vào giỏ hàng!");
+
+        // get selected product & its information (size & quantity)
+        name = this.name;
+        productSelected = $(this).parent().find("figcaption");
+        size = $(productSelected).find("select[name=product-size] option:selected" ).text();
+        quantity = $(productSelected).find("select[name=product-quantity] option:selected" ).text();
+        price = $(productSelected).find("input[name=product-price]").val();
+        image = $(productSelected).find("input[name=product-image]").val();
+        orderProducts.push({'name':name, 'quantity':quantity, 'size':size, 'price': price, 'image':image});
+
+        removefn = 'removeItem(this, "'+name+'");'
+        item = $("<li> \n" +
+                    "<a class='aa-cartbox-img' href='#'><img src='"+image+"'/></a> \n" +
+                    "<div class='aa-cartbox-info'><h4>"+name+" - " +size+"</h4><p>"+quantity+" x "+price+"k</p></div> \n" +
+                    "<a class='aa-remove-product' href='#' onclick='"+removefn+"'><span class='fa fa-times'></span></a> \n" +
+                "</li> \n");
+        $(".aa-cartbox-summary").find("ul").prepend(item);
+        updateShoppingCart();
+        return false;
+    });
+
+    function showNotification(obj, msg) {
+        $(obj).attr("title", msg);
+        $(obj).tooltip('show');
+        setTimeout(function() { $(obj).tooltip('destroy'); }, 1000);
+    };
+
+    jQuery('#orderModal').on('show.bs.modal', function (event) {
+        var modal = $(this);
+        var orderItems = "";
+        for (var i in orderProducts) {
+            orderItems = orderItems + orderProducts[i].name +":" + orderProducts[i].quantity + ";"
+        }
+        modal.find('.modal-body input[name=items]').val(orderItems);
+    });
 });
-

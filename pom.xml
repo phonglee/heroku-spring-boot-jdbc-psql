@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>heroku-spring-boot-psql</artifactId>
+	<artifactId>tgfashionstyle</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Heroku with Spring Boot</name>
+	<name>TG Fashion Style</name>
 	<description></description>
 
 	<parent>

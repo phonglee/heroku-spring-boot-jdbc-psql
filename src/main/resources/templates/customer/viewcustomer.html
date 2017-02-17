@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>TG Fashionstyle Management</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- core CSS -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" />
+    <link href="../assets/css/main.css" rel="stylesheet" th:href="@{/assets/css/main.css}" />
+
+    <link rel="shortcut icon" href="images/ico/happy-lunch.ico" th:href="@{/assets/css/font-awesome.css}" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/images/ico/apple-touch-icon-144-precomposed.png" th:href="@{/assets/images/ico/apple-touch-icon-144-precomposed.png}" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/images/ico/apple-touch-icon-114-precomposed.png" th:href="@{/assets/images/ico/apple-touch-icon-114-precomposed.png}" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/images/ico/apple-touch-icon-72-precomposed.png" th:href="@{/assets/images/ico/apple-touch-icon-72-precomposed.png}" />
+    <link rel="apple-touch-icon-precomposed" href="../assets/images/ico/apple-touch-icon-57-precomposed.png" th:href="@{/assets/images/ico/apple-touch-icon-57-precomposed.png}" />
+</head>
+<body>
+<header id="header">
+    <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img src="../assets/images/logo.png" alt="logo" /></a>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-right">
+                <ul class="nav navbar-nav">
+                    <li class="scroll active"><a href="/administration">Home</a></li>
+                    <li class="scroll"><a id="menu_product" href="/category/view">Manage Category</a></li>
+                    <li class="scroll"><a href="/product/view">Manage Product</a></li>
+                    <li class="scroll"><a href="/customer/order/view">Manage Customer Order</a></li>
+                </ul>
+            </div>
+        </div><!--/.container-->
+    </nav><!--/nav-->
+</header><!--/header-->
+
+<div class="container" style="padding-top: 100px; padding-bottom: 100px">
+    <div class="row">
+        <p class="style1"><a href="/administration">Home</a></p>
+    </div>
+    <div class="row" th:if="${customer}">
+        <form action="#" th:action="@{/customer/add}" th:object="${customer}" method="post">
+            <table border="0">
+                <tr>
+                    <td colspan="2" align="center"><h2>Customer Form</h2></td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td><input id="id" type="hidden" th:field="*{id}"/><input id="name" type="text" th:field="*{name}"/></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input id="desc" type="text" th:field="*{email}"/></td>
+                </tr>
+                <tr>
+                    <td>Phone:</td>
+                    <td><input id="price" type="number" th:field="*{phone}"/></td>
+                </tr>
+                <tr>
+                    <td>Address:</td>
+                    <td><input id="img" type="text" th:field="*{address}"/></td>
+                </tr>
+                <tr style="visibility: hidden">
+                    <td>Images Path:</td>
+                    <td><input id="img" type="text" th:field="*{cityRegion}" value="HCM"/></td>
+                </tr>
+                <tr style="visibility: hidden">
+                    <td>Images Path:</td>
+                    <td><input id="img" type="text" th:field="*{ccNumber}" value="0"/></td>
+                </tr>
+                <tr>
+                    <td><input class="btn btn-primary btn-sm" type="submit" name="Submit" value="Save"/></td>
+                    <td th:unless="${customers}"><a class="btn btn-primary btn-sm" href="/customer/view">Back</a></td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+    <div class="row" th:if="${customers}">
+        <table class="table table-striped">
+            <th>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Phone</td>
+            <td>Address</td>
+            <td>Edit</td>
+            <td>Delete</td>
+            </th>
+            <tr th:each="cus : ${customers}">
+                <td></td>
+                <td th:text="${cus.name}" ></td>
+                <td th:text="${cus.email}" ></td>
+                <td th:text="${cus.phone}" ></td>
+                <td th:text="${cus.address}" ></td>
+                <td>
+                    <form action="#" th:action="@{'/customer/edit/{id}'(id=${cus.id})}" th:method="get" >
+                        <button type="submit" id="submitButton"> Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="#" th:action="@{'/customer/delete/{id}'(id=${cus.id})}" th:method="delete" >
+                        <button type="submit" id="submitButton"> Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

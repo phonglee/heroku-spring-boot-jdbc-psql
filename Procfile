@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar  target/heroku-spring-boot-psql-0.0.1-SNAPSHOT.jar 
+web: java -Dserver.port=$PORT -jar  target/tgfashionstyle-0.0.1-SNAPSHOT.jar 
