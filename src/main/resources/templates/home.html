@@ -285,7 +285,8 @@
                                                 <a class="aa-add-card-btn" href="#" th:name="${dress.name}" title='Đã thêm vào giỏ hàng!' data-toggle='tooltip' data-placement='top'><span class="fa fa-shopping-cart"></span>Thêm vào giỏ</a>
                                                 <figcaption class="product-selected">
                                                     <h4 class="aa-product-title"><a href="#" th:text="${dress.description}"></a></h4>
-                                                    <span class="aa-product-price" th:text="${dress.price + 'k'}"></span><span class="aa-product-price" th:if="${dress.discount > 0}"><del th:text="${dress.discount + 'k'}"></del></span>
+                                                    <span class="aa-product-price" th:if="${dress.discount > 0}" th:text="${dress.discount + 'k'}"></span><span class="aa-product-price"><del th:text="${dress.price + 'k'}"></del></span>
+                                                    <span class="aa-product-price" th:if="${dress.discount == 0}" th:text="${dress.price + 'k'}"></span><span class="aa-product-price"></span>
                                                     <select name="product-size">
                                                         <option value="S">S</option>
                                                         <option value="M" selected="1">M</option>
